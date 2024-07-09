@@ -12,12 +12,18 @@ class LinkedList {
     }
 
     insert(value) {
+        if (value === undefined) {
+            throw new Error("Value must be provided");
+        }
         const newNode = new Node(value);
         newNode.next = this.head;
         this.head = newNode;
     }
 
     insertLast(value) {
+        if (value === undefined) {
+            throw new Error("Value must be provided");
+        }
         const newNode = new Node(value);
         if (!this.head) {
             this.head = newNode;
@@ -42,6 +48,9 @@ class LinkedList {
     }
 
     at(n) {
+        if (n < 0 || n >= this.size()) {
+            throw new Error("Index out of bounds");
+        }
         let current = this.head;
         let count = 0;
         while (current) {
@@ -51,7 +60,6 @@ class LinkedList {
             count++;
             current = current.next;
         }
-        return null; // If n is out of bounds
     }
 
     join(separator = ',') {
@@ -68,6 +76,9 @@ class LinkedList {
     }
 
     map(fn) {
+        if (typeof fn !== 'function') {
+            throw new Error("Argument must be a function");
+        }
         const newList = new LinkedList();
         let current = this.head;
         while (current) {
@@ -78,6 +89,9 @@ class LinkedList {
     }
 
     filter(fn) {
+        if (typeof fn !== 'function') {
+            throw new Error("Argument must be a function");
+        }
         const newList = new LinkedList();
         let current = this.head;
         while (current) {
@@ -90,6 +104,9 @@ class LinkedList {
     }
 
     find(fn) {
+        if (typeof fn !== 'function') {
+            throw new Error("Argument must be a function");
+        }
         let current = this.head;
         while (current) {
             if (fn(current.value)) {
@@ -100,4 +117,3 @@ class LinkedList {
         return null;
     }
 }
-
