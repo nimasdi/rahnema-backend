@@ -2,10 +2,9 @@ import express = require('express');
 
 type userType = "admin" | "normal" | "representive";
 type User = {
-    useranme:string,
+    username:string,
     password:string,
     type :userType,
-    isOnline :boolean
 }
 type Plan = {
     title :string,
@@ -20,6 +19,10 @@ const app = express()
 app.use(express.json());
 
 app.post("/addplan", (req, res) => {
+    const user:User = req.body.user
+    if (user.type !== "admin") {
+        return res.send({status : "you are not admin"})
+    }   
     const title = req.body.title
     const discription = req.body.discription
     plans.push({

@@ -2,8 +2,13 @@ POST http://localhost:3000/addplan
 Content-Type: application/json
 
 {
-    "title": "seconf",
-    "discription": "this is a test"
+    "user": {
+        "username": "nima",
+        "password": "123",
+        "type": "admin"
+    },
+    "title": "democ",
+    "description": "for the glory"
 }
 
 
