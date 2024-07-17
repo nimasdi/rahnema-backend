@@ -8,7 +8,7 @@ type User = {
 }
 type Plan = {
     title: string,
-    discription: string
+    discription: string,
 }
 
 const users: User[] = []
