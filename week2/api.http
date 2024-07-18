@@ -1,26 +1,11 @@
-POST http://localhost:3000/addplan
+POST http://localhost:3000/adduser
 Content-Type: application/json
 
 {
-    "user": {
-        "username": "nima",
-        "password": "123",
-        "type": "admin"
-    },
-    "title": "democ",
-    "description": "for the glory"
+    "full_name": "nima",
+    "user_id": "1",
+    "groups": [] ,
+    "expenses" : []
 }
 
-
 ###
-GET http://localhost:3000/plans
-
-
-###
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-    "username": "nima",
-    "password": "mapq12"
-}
