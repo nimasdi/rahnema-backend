@@ -1,5 +1,6 @@
 import { number, z } from "zod";
 import { baseUserDto } from "../../User/dto/user.dto";
+import { ExpensesDto } from "../../Expense/dto/expense.dto";
 
 // export const GroupDto = z.object({
 //     group_id: z.string().min(1),
@@ -10,6 +11,7 @@ import { baseUserDto } from "../../User/dto/user.dto";
 export const baseGroupDto = z.object({
     group_id: z.string().min(1),
     name: z.string(),
+    expenses: z.array(ExpensesDto)
 });
 
 

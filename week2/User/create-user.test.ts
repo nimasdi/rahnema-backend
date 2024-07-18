@@ -9,7 +9,8 @@ describe('Create User', () => {
         const dto = {
             full_name: "nima",
             user_id: "1",
-            groups: [] 
+            groups: [] ,
+            expenses : []
         };
         createUser(dto, users)
         expect(users).toContainEqual(dto);
