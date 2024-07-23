@@ -11,10 +11,10 @@ app.post("/addgroup", (req, res) => {
     try {
         const dto = groupDto.parse(req.body)
         createGroup(dto,groups)
-        res.send({ message: "group was added" })
+        res.status(200).send({ message: "group was added" })
     }
 
     catch (error) {
-        res.send({ message: "invalid group data" })
+        res.status(400).send({ message: "invalid group data" })
     }   
 })

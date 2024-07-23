@@ -11,9 +11,9 @@ app.post("/adduser", (req, res) => {
     try {
         const dto = userDto.parse(req.body)
         createUser(dto,users)
-        res.send({ message: "user was added" })
+        res.status(200).send({ message: "user was added" })
 
     } catch (error) {
-        res.send({ message: "invalid user data" })
+        res.status(400).send({ message: "invalid user data" })
     }
 })
