@@ -1,0 +1,39 @@
+[
+  {
+    "group_id": "group1",
+    "name": "Example Group",
+    "expenses": [
+      {
+        "reason": "Dinner",
+        "amount": 120,
+        "user_id": "user1",
+        "group_id": "group1",
+        "expense_id": "expense1"
+      },
+      {
+        "reason": "Taxi",
+        "amount": 60,
+        "user_id": "user2",
+        "group_id": "group1",
+        "expense_id": "expense2"
+      }
+    ],
+    "people": [
+      {
+        "full_name": "User One",
+        "user_id": "user1",
+        "expenses": []
+      },
+      {
+        "full_name": "User Two",
+        "user_id": "user2",
+        "expenses": []
+      },
+      {
+        "full_name": "User Three",
+        "user_id": "user3",
+        "expenses": []
+      }
+    ]
+  }
+]
