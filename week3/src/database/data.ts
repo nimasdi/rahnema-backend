@@ -1,3 +1,4 @@
+import { log } from "node:console";
 import { Expense } from "../models/Expense/dto/expense.dto";
 import { Group } from "../models/Group/dto/group.dto";
 import { User } from "../models/User/dto/user.dto";
@@ -18,7 +19,7 @@ export class FileDatabase implements IDatabase {
         this.filename = filename;
     }
 
-    private parseFileContent<T>(fileContent: string): T[] {
+    protected parseFileContent<T>(fileContent: string): T[] {
         try {
             return JSON.parse(fileContent) as T[];
         } catch (error) {
@@ -48,9 +49,14 @@ export class FileDatabase implements IDatabase {
         if (fs.existsSync(this.filename)) {
             const fileContent = fs.readFileSync(this.filename, 'utf-8');
             const jsonData = this.parseFileContent<{ id: string }>(fileContent);
+            console.log(jsonData)
             const index = jsonData.findIndex(item => item.id === id);
+
+            console.log(index)
             if (index !== -1) {
+
                 jsonData[index] = { ...jsonData[index], ...newData };
+                console.log(jsonData)
                 fs.writeFileSync(this.filename, JSON.stringify(jsonData, null, 2));
             } else {
                 console.error(`Item with id ${id} not found.`);
@@ -88,7 +94,7 @@ export class UserDataBase extends FileDatabase {
         const users: User[] = this.read<User>();
         const expenses: Expense[] = (new FileDatabase(this.expenseFile)).read<Expense>();
         const groups: Group[] = (new FileDatabase(this.groupFile)).read<Group>();
-
+        
         users.forEach(user => {
             user.expenses = expenses.filter(expense => expense.user_id === user.user_id);
             user.groups = groups.filter(group => group.people.some(person => person.user_id === user.user_id));
@@ -96,6 +102,28 @@ export class UserDataBase extends FileDatabase {
 
         return users;
     }
+
+    updateUser<T>(id: string, newData: T): void {
+        if (fs.existsSync(this.filename)) {
+            const fileContent = fs.readFileSync(this.filename, 'utf-8');
+            const jsonData:User[] = this.parseFileContent(fileContent);
+            console.log(jsonData)
+            const index = jsonData.findIndex(item => item.user_id === id);
+
+            console.log(index)
+            if (index !== -1) {
+
+                jsonData[index] = { ...jsonData[index], ...newData };
+                console.log(jsonData)
+                fs.writeFileSync(this.filename, JSON.stringify(jsonData, null, 2));
+            } else {
+                console.error(`Item with id ${id} not found.`);
+            }
+        } else {
+            console.error(`File ${this.filename} not found.`);
+        }
+    }
+
 }
 
 export class GroupDataBase extends FileDatabase {

@@ -1,11 +1,17 @@
 import { describe, expect, test } from '@jest/globals';
-import { groups } from '../routes/group.route';
-import { createGroup } from './create-group';
+import { testGroupRepo, testUserRepo } from '../../dependency-test';
+import { GroupService } from './group.service';
+import { UserService } from '../User/user.service';
+import { groupRepo } from '../../dependency';
+
+
+const users = testUserRepo.getAllUsers();
+const groups = testGroupRepo.getAllGroups();
+
+const userService = new UserService(testUserRepo)
+const groupService = new GroupService(testGroupRepo)
 
 describe('Create Group', () => {
-    beforeEach(() => {
-        groups.length = 0; 
-    });
 
     test("should create a group", () => {
         const dto = {
@@ -15,7 +21,7 @@ describe('Create Group', () => {
             expenses: []
         };
 
-        createGroup(dto, groups);
+       groupService.createGroup(dto);
         expect(groups).toContainEqual(dto);
     });
 
@@ -34,10 +40,10 @@ describe('Create Group', () => {
             expenses: []
         };
 
-        createGroup(dto1, groups);
-        createGroup(dto2, groups);
+        groupService.createGroup(dto1);
+        groupService.createGroup(dto2);
 
-        expect(groups).toContainEqual(dto1);
-        expect(groups).not.toContainEqual(dto2);
+        expect(groupRepo.getAllGroups()).toContainEqual(dto1);
+        expect(groupRepo.getAllGroups()).not.toContainEqual(dto2);
     });
 });

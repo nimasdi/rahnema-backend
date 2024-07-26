@@ -1,0 +1,50 @@
+[
+    {
+        "group_id": "1",
+        "name": "Friends Group",
+        "expenses": [
+            { "expense_id": "1", "reason": "Shopping", "amount": 50, "user_id": "1" , "group_id" : "1"},
+            { "expense_id": "3", "reason": "Movie Tickets", "amount": 25, "user_id": "2" , "group_id" :" 1"}
+        ],
+        "people": [
+            {
+                "full_name": "John Doe",
+                "user_id": "1",
+                "expenses": [
+                    { "expense_id": "1", "reason": "Shopping", "amount": 50, "user_id": "1" , "group_id" : "1"}
+                ]
+            },
+            {
+                "full_name": "Jane Smith",
+                "user_id": "2",
+                "expenses": [
+                    { "expense_id": "3", "reason": "Movie Tickets", "amount": 25, "user_id": "2" , "group_id" :" 1"}
+                ]
+            }
+        ]
+    },
+    {
+        "group_id": "2",
+        "name": "Work Group",
+        "expenses": [
+            { "expense_id": "2", "reason": "Dinner", "amount": 30, "user_id": "1" , "group_id":"2" },
+            { "expense_id": "4", "reason": "Coffee", "amount": 5, "user_id": "2" , "group_id" : "2" }
+        ],
+        "people": [
+            {
+                "full_name": "John Doe",
+                "user_id": "1",
+                "expenses": [
+                    { "expense_id": "2", "reason": "Dinner", "amount": 30, "group_id": "2","user_id": "1" }
+                ]
+            },
+            {
+                "full_name": "Jane Smith",
+                "user_id": "2",
+                "expenses": [
+                    { "expense_id": "4", "reason": "Coffee", "amount": 5, "group_id": "2" , "user_id": "2" }
+                ]
+            }
+        ]
+    }
+]

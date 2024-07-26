@@ -23,4 +23,8 @@ export class UserService {
         }
         return { expenses: [] };
     };
+
+    addUserToGroup(group_id: string, user_id: string) {
+        this.userRepo.addUserToGroup(group_id, user_id);
+    }
 }

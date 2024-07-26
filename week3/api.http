@@ -43,3 +43,16 @@ Content-Type: application/json
         { "full_name": "User Three", "user_id": "user3", "expenses": [] }
     ]
 }
+
+
+###
+POST http://localhost:3000/addexpense
+Content-Type: application/json
+
+{
+  "reason": "test",
+  "expense_id": "1",
+  "user_id": "user1",
+  "group_id": "group1",
+  "amount": 100
+}

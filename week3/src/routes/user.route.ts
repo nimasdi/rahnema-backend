@@ -16,7 +16,20 @@ app.post("/adduser", (req, res) => {
 
     } catch (error) {
         res.status(400).send({ message: "invalid user data" })
-        console.log(error)
     }
 })
 
+app.post("/:group_id/add", (req, res) => {
+
+    try {
+        const { group_id } = req.params
+        const {user_id} = req.body
+        userService.addUserToGroup(group_id, user_id)
+        res.status(200).send({ message: "user was added" })
+    }
+
+    catch (error) {
+        res.status(400).send({ message: "invalid user data" })
+        console.log(error)
+    }
+})

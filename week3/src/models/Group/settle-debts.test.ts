@@ -1,6 +1,15 @@
 import { describe, expect, test } from '@jest/globals';
 import { Group } from './dto/group.dto';
-import { calculateSettlements, Settlement } from './settle-debts';
+import { testGroupRepo, testUserRepo } from '../../dependency-test';
+import { UserService } from '../User/user.service';
+import { GroupService, Settlement } from './group.service';
+
+
+const users = testUserRepo.getAllUsers();
+const groups = testGroupRepo.getAllGroups();
+
+const userService = new UserService(testUserRepo)
+const groupService = new GroupService(testGroupRepo)
 
 
 describe('calculateSettlements', () => {
@@ -26,7 +35,7 @@ describe('calculateSettlements', () => {
             { person: 'user3', give_to: 'user2', amount: 20 }
         ];
 
-        const transactions = calculateSettlements(exampleGroup);
+        const transactions = groupService.calculateSettlements(exampleGroup);
 
         expect(transactions).toEqual(expectedTransactions);
     });
@@ -51,7 +60,7 @@ describe('calculateSettlements', () => {
     
         const expectedSettlements: Settlement[] = [];
     
-        const settlements = calculateSettlements(exampleGroup);
+        const settlements = groupService.calculateSettlements(exampleGroup);
         expect(settlements).toEqual(expectedSettlements);
     });
     
@@ -70,7 +79,7 @@ describe('calculateSettlements', () => {
     
         const expectedSettlements: Settlement[] = [];
     
-        const settlements = calculateSettlements(exampleGroup);
+        const settlements = groupService.calculateSettlements(exampleGroup);
         expect(settlements).toEqual(expectedSettlements);
     });
     
@@ -94,7 +103,7 @@ describe('calculateSettlements', () => {
             { person: "user3", give_to: "user1", amount: 100 }
         ];
     
-        const settlements = calculateSettlements(exampleGroup);
+        const settlements = groupService.calculateSettlements(exampleGroup);
         expect(settlements).toEqual(expectedSettlements);
     });
     

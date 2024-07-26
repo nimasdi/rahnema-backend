@@ -1,0 +1,9 @@
+[
+  {
+    "reason": "test",
+    "amount": 100,
+    "user_id": "user1",
+    "group_id": "group1",
+    "expense_id": "1"
+  }
+]

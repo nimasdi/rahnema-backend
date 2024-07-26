@@ -14,6 +14,7 @@ export const createExpense = (expense: Expense , user_database:UserRepo , group_
     const User = users.find(user => user.user_id === expense.user_id);
     const Group = groups.find(group => group.group_id === expense.group_id);
     
+    console.log(User , Group)
     if(Group?.expenses.includes(expense)) {
         return;
     }
