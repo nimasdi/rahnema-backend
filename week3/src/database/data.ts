@@ -29,9 +29,7 @@ export class FileDatabase implements IDatabase {
     }
 
     create<T>(data: T): void {
-        console.log(data)
         const fileContent = fs.existsSync(this.filename) ? fs.readFileSync(this.filename, 'utf-8') : '[]';
-        console.log(fileContent)
         const jsonData = this.parseFileContent<T>(fileContent);
         jsonData.push(data);
         fs.writeFileSync(this.filename, JSON.stringify(jsonData, null, 2));
@@ -49,14 +47,14 @@ export class FileDatabase implements IDatabase {
         if (fs.existsSync(this.filename)) {
             const fileContent = fs.readFileSync(this.filename, 'utf-8');
             const jsonData = this.parseFileContent<{ id: string }>(fileContent);
-            console.log(jsonData)
+            // console.log(jsonData)
             const index = jsonData.findIndex(item => item.id === id);
 
-            console.log(index)
+            // console.log(index)
             if (index !== -1) {
 
                 jsonData[index] = { ...jsonData[index], ...newData };
-                console.log(jsonData)
+                // console.log(jsonData)
                 fs.writeFileSync(this.filename, JSON.stringify(jsonData, null, 2));
             } else {
                 console.error(`Item with id ${id} not found.`);
@@ -107,14 +105,11 @@ export class UserDataBase extends FileDatabase {
         if (fs.existsSync(this.filename)) {
             const fileContent = fs.readFileSync(this.filename, 'utf-8');
             const jsonData:User[] = this.parseFileContent(fileContent);
-            console.log(jsonData)
             const index = jsonData.findIndex(item => item.user_id === id);
 
-            console.log(index)
             if (index !== -1) {
 
                 jsonData[index] = { ...jsonData[index], ...newData };
-                console.log(jsonData)
                 fs.writeFileSync(this.filename, JSON.stringify(jsonData, null, 2));
             } else {
                 console.error(`Item with id ${id} not found.`);
@@ -129,9 +124,11 @@ export class UserDataBase extends FileDatabase {
 export class GroupDataBase extends FileDatabase {
     private expenseFile: string;
     private userFile: string;
+    private groupFile: string;
 
     constructor(groupFile: string, expenseFile: string, userFile: string) {
         super(groupFile);
+        this.groupFile = groupFile;
         this.expenseFile = expenseFile;
         this.userFile = userFile;
     }
@@ -139,16 +136,20 @@ export class GroupDataBase extends FileDatabase {
     loadGroupsWithExpensesAndUsers(): Group[] {
         const groups: Group[] = this.read<Group>();
         const expenses: Expense[] = (new FileDatabase(this.expenseFile)).read<Expense>();
-        const users: User[] = (new FileDatabase(this.userFile)).read<User>();
-
+        const users: User[] = (new UserDataBase(this.userFile,this.expenseFile,this.groupFile)).loadUsersWithExpensesAndGroups();
+    
         groups.forEach(group => {
             group.expenses = expenses.filter(expense => expense.group_id === group.group_id);
+    
             group.people = users.filter(user => user.groups.some(g => g.group_id === group.group_id));
+    
             group.people.forEach(user => {
                 user.expenses = expenses.filter(expense => expense.user_id === user.user_id);
             });
         });
-
+    
+        console.log("test:", groups);
         return groups;
     }
+    
 }

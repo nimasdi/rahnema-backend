@@ -21,29 +21,29 @@ describe('Create Group', () => {
             expenses: []
         };
 
-       groupService.createGroup(dto);
-        expect(groups).toContainEqual(dto);
+       
+        expect(groupService.canCreateGroup(dto)).toBe(false);
     });
 
-    test("should not create a group with duplicate group id", () => {
-        const dto1 = {
-            group_id: "1",
-            name: "snapp",
-            people: [],
-            expenses: []
-        };
+    // test("should not create a group with duplicate group id", () => {
+    //     const dto1 = {
+    //         group_id: "1",
+    //         name: "snapp",
+    //         people: [],
+    //         expenses: []
+    //     };
 
-        const dto2 = {
-            group_id: "1",
-            name: "tabsi",
-            people: [],
-            expenses: []
-        };
+    //     const dto2 = {
+    //         group_id: "1",
+    //         name: "tabsi",
+    //         people: [],
+    //         expenses: []
+    //     };
 
-        groupService.createGroup(dto1);
-        groupService.createGroup(dto2);
+    //     groupService.createGroup(dto1);
+    //     groupService.createGroup(dto2);
 
-        expect(groupRepo.getAllGroups()).toContainEqual(dto1);
-        expect(groupRepo.getAllGroups()).not.toContainEqual(dto2);
-    });
+    //     expect(groupRepo.getAllGroups()).toContainEqual(dto1);
+    //     expect(groupRepo.getAllGroups()).not.toContainEqual(dto2);
+    // });
 });

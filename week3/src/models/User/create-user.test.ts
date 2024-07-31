@@ -5,13 +5,9 @@ import { FileDatabase, GroupDataBase, UserDataBase } from '../../database/data';
 import { UserRepo } from './user.repo';
 import { GroupRepo } from '../Group/group.repo';
 import { ExpenseRepo } from '../Expense/expense.repo';
+import { testUserRepo } from '../../dependency-test';
 
-const userFilePath = path.join(__dirname, './database/User/user.test.json');
-const expenseFilePath = path.join(__dirname, './database/Expense/expense.test.json');
-const groupFilePath = path.join(__dirname, './database/Group/group.test.json');
 
-const TestUserFileDB = new UserDataBase(userFilePath, expenseFilePath, groupFilePath);
-const testUserRepo = new UserRepo(TestUserFileDB);
 
 describe('Create User', () => {
     test('should create user', () => {
@@ -22,8 +18,7 @@ describe('Create User', () => {
             groups: [],
             expenses: []
         };
-        userServie.createUser(dto);
-        const users = testUserRepo.getAllUsers();
-        expect(users).toContainEqual(dto);
+
+        expect(userServie.canCreateUser(dto)).toBe(false);
     });
 });

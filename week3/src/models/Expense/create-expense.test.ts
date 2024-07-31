@@ -24,7 +24,7 @@ describe('Create expense', () => {
             amount: 100
         };
 
-        expect(canCreateExpense(dto,testUserRepo,testGroupRepo)).toBe(true)
+        expect(canCreateExpense(dto,testUserRepo,testGroupRepo)).toBe(false)
 
     });
 

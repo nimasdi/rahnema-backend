@@ -1,5 +1,5 @@
-import { FileDatabase, GroupDataBase, UserDataBase } from "./database/data";
 import { ExpenseRepo } from "./models/Expense/expense.repo";
+import { FileDatabase, GroupDataBase, UserDataBase } from "./database/data";
 import { GroupRepo } from "./models/Group/group.repo";
 import { UserRepo } from "./models/User/user.repo";
 import * as path from 'path';
@@ -13,7 +13,7 @@ export const TestUserFileDB = new UserDataBase(userFilePath, expenseFilePath, gr
 export const TestGroupFileDB = new GroupDataBase(groupFilePath, expenseFilePath, userFilePath);
 export const TestExpenseFileDB = new FileDatabase(expenseFilePath);
 
-export const testUserRepo = new UserRepo(TestUserFileDB);
 export const testGroupRepo = new GroupRepo(TestGroupFileDB);
+export const testUserRepo = new UserRepo(TestUserFileDB,testGroupRepo);
 export const testExpenseRepo = new ExpenseRepo(TestExpenseFileDB);
 

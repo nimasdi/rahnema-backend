@@ -12,7 +12,7 @@ export const UserFileDB = new UserDataBase(userFilePath, expenseFilePath, groupF
 export const GroupFileDB = new GroupDataBase(groupFilePath, expenseFilePath, userFilePath);
 export const ExpenseFileDB = new FileDatabase(expenseFilePath);
 
-export const userRepo = new UserRepo(UserFileDB);
 export const groupRepo = new GroupRepo(GroupFileDB);
+export const userRepo = new UserRepo(UserFileDB,groupRepo);
 export const expenseRepo = new ExpenseRepo(ExpenseFileDB);
 

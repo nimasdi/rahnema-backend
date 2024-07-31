@@ -14,6 +14,15 @@ export class UserService {
         }
     }
 
+    canCreateUser(dto: User) {
+        const allusers = this.userRepo.getAllUsers();
+        const userExists = allusers.some(user => user.user_id === dto.user_id);
+        if (!userExists) {
+            return true;
+        }
+        return false;
+    }
+
     getUserExpenses(userId: string): { expenses: Expense[] } {
     
         const users =  this.userRepo.getAllUsers();
@@ -27,4 +36,4 @@ export class UserService {
     addUserToGroup(group_id: string, user_id: string) {
         this.userRepo.addUserToGroup(group_id, user_id);
     }
-}
+} 

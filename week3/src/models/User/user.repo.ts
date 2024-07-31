@@ -1,12 +1,11 @@
 import { UserDataBase } from "../../database/data";
-import { groupRepo } from "../../dependency";
 import { Group } from "../Group/dto/group.dto";
 import { GroupRepo } from "../Group/group.repo";
 import { User } from "./dto/user.dto";
 
 export class UserRepo {
 
-    constructor(private user_database: UserDataBase) {
+    constructor(private user_database: UserDataBase , private groupRepo: GroupRepo) {
 
     }
 
@@ -21,7 +20,7 @@ export class UserRepo {
 
     addUserToGroup(group_id: string, user_id: string) {
         const users: User[] = this.user_database.loadUsersWithExpensesAndGroups();
-        const groups: Group[] = groupRepo.getAllGroups();
+        const groups: Group[] = this.groupRepo.getAllGroups();
         
         const user = users.find(user => user.user_id === user_id);
         const group = groups.find(group => group.group_id === group_id);

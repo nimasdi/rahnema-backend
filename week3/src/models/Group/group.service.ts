@@ -79,14 +79,24 @@ export class GroupService{
             this.groupRepo.addGroup(dto);
         }
     }
+
+    canCreateGroup(dto: Group) {
+        const groups = this.groupRepo.getAllGroups();
+        const groupExists = groups.some(group => group.group_id === dto.group_id);
+        return !groupExists;
+    }
     
 
     getGroupExpensesForUser(userId: string ): { group_id: string, expenses: Expense[] }[]{
         const groupExpenses: { group_id: string, expenses: Expense[] }[] = [];
         const groups = this.groupRepo.getAllGroups();
+
+        console.log(groups);
+
         
         groups.forEach(group => {
             const userInGroup = group.people.find(person => person.user_id === userId);
+            console.log(userInGroup);
             if (userInGroup) {
                 groupExpenses.push({
                     group_id: group.group_id,
@@ -94,7 +104,7 @@ export class GroupService{
                 });
             }
         });
-    
+        
         return groupExpenses;
     };
 }

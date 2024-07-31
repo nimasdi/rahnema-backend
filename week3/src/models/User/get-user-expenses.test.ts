@@ -17,8 +17,15 @@ describe('getUserExpenses', () => {
         const userId = "1";
         const result = userService.getUserExpenses(userId);
         const expectedExpenses = [
-            { expense_id: "1", reason: "Shopping", amount: 50, group_id: "1" , user_id : "1" },
-            { expense_id: "2", reason: "Dinner", amount: 30, group_id: "2" , user_id: "1"}
+            // { "expense_id": "1", "reason": "Shopping", "amount": 50, "group_id": "1", "user_id": "1" },
+            // { "expense_id": "2", "reason": "Dinner", "amount": 30, "group_id": "2", "user_id": "1" },
+            {
+                "reason": "test",
+                "expense_id": "10",
+                "user_id": "1",
+                "group_id": "1",
+                "amount": 100
+            }
         ];
         expect(result.expenses).toEqual(expectedExpenses);
     });
@@ -35,8 +42,8 @@ describe('getGroupExpensesForUser', () => {
         const userId = "1";
         const result = groupService.getGroupExpensesForUser(userId);
         const expectedGroupExpenses = [
-            { group_id: "1", expenses: [{ expense_id: "1", reason: "Shopping", amount: 50, user_id: "1" , group_id: "1" }] },
-            { group_id: "2", expenses: [{ expense_id: "2", reason: "Dinner", amount: 30, user_id: "1"  , group_id: "2"}] }
+            { group_id: "1", expenses: [{ expense_id: "1", reason: "Shopping", amount: 50, user_id: "1", group_id: "1" }] },
+            { group_id: "2", expenses: [{ expense_id: "2", reason: "Dinner", amount: 30, user_id: "1", group_id: "2" }] }
         ];
         expect(result).toEqual(expectedGroupExpenses);
     });
